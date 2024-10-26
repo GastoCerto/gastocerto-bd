@@ -18,27 +18,24 @@ INSERT INTO Usuario VALUES (9, 'joaquim', 'gbfggbg', 'joaquim@gmail.com');
 
 CREATE TABLE Categoria (
 Id_categ INTEGER PRIMARY KEY,
-Nome_categ VARCHAR(32), 
-Id_usuario INTEGER,
-FOREIGN KEY (Id_usuario) REFERENCES Usuario (Id_usuario)
+Nome_categ VARCHAR(32)
 );
 
-INSERT INTO Categoria VALUES (355, 'educação', 1);
-INSERT INTO Categoria VALUES (234, 'esporte', 2);
-INSERT INTO Categoria VALUES (123, 'saúde', 3);
-INSERT INTO Categoria VALUES (888, 'lazer', 5);
-INSERT INTO Categoria VALUES (554, 'comida', 5);
-INSERT INTO Categoria VALUES (368, 'contas', 6);
-INSERT INTO Categoria VALUES (890, 'viagem', 1);
-INSERT INTO Categoria VALUES (977, 'academia', 1);
-
+INSERT INTO Categoria VALUES (355, 'educação');
+INSERT INTO Categoria VALUES (234, 'esporte');
+INSERT INTO Categoria VALUES (123, 'saúde');
+INSERT INTO Categoria VALUES (888, 'lazer');
+INSERT INTO Categoria VALUES (554, 'comida');
+INSERT INTO Categoria VALUES (368, 'contas');
+INSERT INTO Categoria VALUES (890, 'viagem');
+INSERT INTO Categoria VALUES (977, 'academia');
 
 CREATE TABLE Conteudo (
-Id_conteudo INTEGER PRIMARY KEY,
-Cont_video VARCHAR(255), 
-Cont_texto VARCHAR(255),
-Id_usuario INTEGER,
-FOREIGN KEY (Id_usuario) REFERENCES Usuario (Id_usuario)
+    Id_conteudo INTEGER PRIMARY KEY,
+    Cont_video VARCHAR(255), 
+    Cont_texto VARCHAR(255),
+    Id_usuario INTEGER,
+    FOREIGN KEY (Id_usuario) REFERENCES Usuario (Id_usuario)
 );
 
 INSERT INTO Conteudo VALUES (1, 'https://educação_financeira','Importância do Orçamento: Um orçamento bem elaborado é a base de uma boa saúde financeira. Ele permite que você saiba para onde seu dinheiro está indo e ajuda a evitar gastos desnecessários.', 1);
@@ -52,25 +49,30 @@ INSERT INTO Conteudo VALUES (8, 'https://melhores_investimentos','Acompanhe seus
 INSERT INTO Conteudo VALUES (9, 'https://bolsa_de_valores','Entenda Seu Perfil de Investidor: Conhecer seu perfil de investidor é fundamental para tomar decisões financeiras adequadas. Avalie sua tolerância ao risco, objetivos e prazos para escolher os investimentos que melhor se encaixam nas suas necessidades.', 9);
 INSERT INTO Conteudo VALUES (10, 'https://dicas_para_investir','Diversificação de Investimentos: Não coloque todos os seus ovos na mesma cesta. Diversificar seus investimentos entre diferentes ativos, como ações, renda fixa e imóveis, pode reduzir riscos e aumentar suas chances de retorno.', 1);
 
-
 CREATE TABLE Gasto (
 Id_gasto INTEGER PRIMARY KEY,
+Id_usuario INTEGER,
 Valor NUMBER,
 Data_gasto DATE,
 Nome_categoria VARCHAR(32),
 Id_categ INTEGER,
-UNIQUE (Nome_categoria),
-FOREIGN KEY (Id_categ) REFERENCES Categoria (Id_categ)
+FOREIGN KEY (Id_categ) REFERENCES Categoria (Id_categ),
+FOREIGN KEY (Id_usuario) REFERENCES Usuario (Id_usuario)
 );
 
-INSERT INTO Gasto VALUES (1, 600, TO_DATE('2024-10-26', 'YYYY-MM-DD'), 'educação', 355);
-INSERT INTO Gasto VALUES (2, 576.80, TO_DATE('2024-10-23', 'YYYY-MM-DD'), 'esporte', 234);
-INSERT INTO Gasto VALUES (3, 6896.89, TO_DATE('2024-09-03', 'YYYY-MM-DD'), 'saúde', 123);
-INSERT INTO Gasto VALUES (4, 100, TO_DATE('2024-03-12', 'YYYY-MM-DD'), 'lazer', 888);
-INSERT INTO Gasto VALUES (5, 456.70, TO_DATE('2024-04-15', 'YYYY-MM-DD'), 'comida', 554);
-INSERT INTO Gasto VALUES (6, 4000, TO_DATE('2024-01-05', 'YYYY-MM-DD'), 'contas', 368);
-INSERT INTO Gasto VALUES (7, 5389.60, TO_DATE('2024-06-17', 'YYYY-MM-DD'), 'viagem', 890);
-INSERT INTO Gasto VALUES (8, 340, TO_DATE('2024-07-09', 'YYYY-MM-DD'), 'academia', 977);
+INSERT INTO Gasto VALUES (1, 1, 600, TO_DATE('2024-10-26', 'YYYY-MM-DD'), 'educação', 355);
+INSERT INTO Gasto VALUES (2, 2, 576.80, TO_DATE('2024-10-23', 'YYYY-MM-DD'), 'esporte', 234);
+INSERT INTO Gasto VALUES (3, 3, 6896.89, TO_DATE('2024-09-03', 'YYYY-MM-DD'), 'saúde', 123);
+INSERT INTO Gasto VALUES (4, 6, 100, TO_DATE('2024-03-12', 'YYYY-MM-DD'), 'lazer', 888);
+INSERT INTO Gasto VALUES (5, 4, 456.70, TO_DATE('2024-04-15', 'YYYY-MM-DD'), 'comida', 554);
+INSERT INTO Gasto VALUES (6, 2, 4000, TO_DATE('2024-01-05', 'YYYY-MM-DD'), 'contas', 368);
+INSERT INTO Gasto VALUES (7, 6, 5389.60, TO_DATE('2024-06-17', 'YYYY-MM-DD'), 'viagem', 890);
+INSERT INTO Gasto VALUES (8, 5, 340, TO_DATE('2024-07-09', 'YYYY-MM-DD'), 'academia', 977);
+INSERT INTO Gasto VALUES (9, 3, 2506.35, TO_DATE('2024-07-09', 'YYYY-MM-DD'), 'viagem', 890);
+INSERT INTO Gasto VALUES (10, 5, 340, TO_DATE('2024-07-09', 'YYYY-MM-DD'), 'academia', 977);
+INSERT INTO Gasto VALUES (11, 8, 568, TO_DATE('2024-02-14', 'YYYY-MM-DD'), 'esporte', 234);
+INSERT INTO Gasto VALUES (12, 7, 568, TO_DATE('2024-03-14', 'YYYY-MM-DD'), 'esporte', 234);
+INSERT INTO Gasto VALUES (13, 2, 566.80, TO_DATE('2024-10-23', 'YYYY-MM-DD'), 'saúde', 123);
 
 
 SELECT * FROM Usuario;
@@ -87,7 +89,7 @@ SELECT
 FROM usuario u 
 INNER JOIN conteudo c
     ON u.id_usuario = c.id_usuario
-    
+
 -- 2. UMA consulta contendo GROUP BY envolvendo DUAS tabelas (com INNER JOIN);
 SELECT
      u.id_usuario
