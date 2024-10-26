@@ -72,7 +72,58 @@ INSERT INTO Gasto VALUES (6, 4000, TO_DATE('2024-01-05', 'YYYY-MM-DD'), 'contas'
 INSERT INTO Gasto VALUES (7, 5389.60, TO_DATE('2024-06-17', 'YYYY-MM-DD'), 'viagem', 890);
 INSERT INTO Gasto VALUES (8, 340, TO_DATE('2024-07-09', 'YYYY-MM-DD'), 'academia', 977);
 
+
 SELECT * FROM Usuario;
 SELECT * FROM Categoria;
 SELECT * FROM Conteudo;
 SELECT * FROM Gasto;
+
+
+-- 1. UMA consulta (sem GROUP BY) envolvendo DUAS tabelas (com INNER JOIN);
+SELECT 
+     u.nome_usuario
+    , c.cont_video
+    , c.cont_texto 
+FROM usuario u 
+INNER JOIN conteudo c
+    ON u.id_usuario = c.id_usuario
+    
+-- 2. UMA consulta contendo GROUP BY envolvendo DUAS tabelas (com INNER JOIN);
+SELECT
+     u.id_usuario
+     , u.nome_usuario
+     , u.email
+     , g.data_gasto
+     , COUNT(data_gasto) as qtd_gastos
+FROM usuario u 
+INNER JOIN gasto g 
+    ON g.id_usuario = u.id_usuario
+GROUP BY u.id_usuario
+        , u.nome_usuario
+        , u.email
+        , g.data_gasto
+
+-- 3. UMA consulta contendo DUAS tabelas e utilizando LEFT JOIN ou RIGHT JOIN;
+SELECT 
+      c.nome_categ
+      , g.valor
+      , g.data_gasto
+FROM categoria c
+RIGHT JOIN gasto g 
+   ON c.id_categ = g.id_categ
+   WHERE valor >= 1000 
+
+-- 4. UMA consulta contendo TRÊS ou mais tabelas (pode ser utilizado INNER JOIN, LEFT JOIN ou RIGHT JOIN)
+SELECT 
+    u.email
+    , u.nome_usuario
+    , c.nome_categ
+    , SUM(g.valor) as gasto_total
+FROM gasto g 
+INNER JOIN categoria c 
+   ON c.id_categ = g.id_categ
+INNER JOIN usuario u 
+   ON g.id_usuario = u.id_usuario
+GROUP BY u.email
+         , u.nome_usuario
+         , c.nome_categ
