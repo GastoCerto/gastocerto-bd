@@ -1,0 +1,78 @@
+CREATE TABLE Usuario (
+Id_usuario INTEGER PRIMARY KEY, 
+Nome_usuario VARCHAR(32),
+Senha VARCHAR(12), 
+Email VARCHAR(32),
+UNIQUE (Senha, Email)
+);
+
+INSERT INTO Usuario VALUES (1, 'isabella', '230594', 'bellasofiamartins@gmail.com');
+INSERT INTO Usuario VALUES (2, 'ana', '239344', '123ana@gmail.com');
+INSERT INTO Usuario VALUES (3, 'joao', 'balaldfr', 'joaobobao@hotmail.com');
+INSERT INTO Usuario VALUES (4, 'ana', 'aninha123', '123123@hotmail.com');
+INSERT INTO Usuario VALUES (5, 'luiza', 'luluhul', 'luiza@gmail.com');
+INSERT INTO Usuario VALUES (6, 'gabriel', 'gabs5607', 'gael@gmail.com');
+INSERT INTO Usuario VALUES (7, 'ricardo', 'r5382', 'aaaaaa@gmail.com');
+INSERT INTO Usuario VALUES (8, 'lucas', 'vmogijgt', 'blabla@gmail.com');
+INSERT INTO Usuario VALUES (9, 'joaquim', 'gbfggbg', 'joaquim@gmail.com');
+
+CREATE TABLE Categoria (
+Id_categ INTEGER PRIMARY KEY,
+Nome_categ VARCHAR(32), 
+Id_usuario INTEGER,
+FOREIGN KEY (Id_usuario) REFERENCES Usuario (Id_usuario)
+);
+
+INSERT INTO Categoria VALUES (355, 'educação', 1);
+INSERT INTO Categoria VALUES (234, 'esporte', 2);
+INSERT INTO Categoria VALUES (123, 'saúde', 3);
+INSERT INTO Categoria VALUES (888, 'lazer', 5);
+INSERT INTO Categoria VALUES (554, 'comida', 5);
+INSERT INTO Categoria VALUES (368, 'contas', 6);
+INSERT INTO Categoria VALUES (890, 'viagem', 1);
+INSERT INTO Categoria VALUES (977, 'academia', 1);
+
+
+CREATE TABLE Conteudo (
+Id_conteudo INTEGER PRIMARY KEY,
+Cont_video VARCHAR(255), 
+Cont_texto VARCHAR(255),
+Id_usuario INTEGER,
+FOREIGN KEY (Id_usuario) REFERENCES Usuario (Id_usuario)
+);
+
+INSERT INTO Conteudo VALUES (1, 'https://educação_financeira','Importância do Orçamento: Um orçamento bem elaborado é a base de uma boa saúde financeira. Ele permite que você saiba para onde seu dinheiro está indo e ajuda a evitar gastos desnecessários.', 1);
+INSERT INTO Conteudo VALUES (2, 'https://economize','Poupança e Emergências: Ter uma reserva financeira é crucial. Aconselha-se guardar pelo menos três a seis meses de despesas mensais para cobrir emergências, como desemprego ou despesas inesperadas.', 2);
+INSERT INTO Conteudo VALUES (3, 'https://5_dicas_valicsas_para_investir','Dívidas Sob Controle: Evitar dívidas desnecessárias é fundamental. Se precisar recorrer a empréstimos, compare taxas e condições. Priorize sempre pagar as dívidas com juros mais altos primeiro.', 3);
+INSERT INTO Conteudo VALUES (4, 'https://primeiros_passos_economizando','Investir é Essencial: Não deixe seu dinheiro parado. Investir em opções como ações, fundos ou imóveis pode ajudar seu patrimônio a crescer ao longo do tempo. Comece cedo para aproveitar os juros compostos.', 4);
+INSERT INTO Conteudo VALUES (5, 'https://economizar','Educação Contínua: Aprender sobre finanças é um processo contínuo. Leia livros, faça cursos e siga fontes confiáveis para se manter atualizado sobre novas oportunidades e estratégias financeiras.', 5);
+INSERT INTO Conteudo VALUES (6, 'https://investir_com_consciencia','Planejamento para Aposentadoria: Quanto mais cedo você começar a planejar sua aposentadoria, melhor. Contribuições regulares para um fundo de previdência podem garantir uma aposentadoria tranquila e confortável.', 5);
+INSERT INTO Conteudo VALUES (7, 'https://como_aumentar_renda','Consumo Consciente: Antes de comprar, pergunte-se se realmente precisa do item. O consumo consciente não só ajuda a economizar, mas também contribui para um estilo de vida mais sustentável.', 6);
+INSERT INTO Conteudo VALUES (8, 'https://melhores_investimentos','Acompanhe seus Gastos: Use aplicativos ou planilhas para monitorar seus gastos diários. Isso ajudará você a identificar padrões e áreas onde pode economizar, tornando mais fácil atingir suas metas financeiras.', 1);
+INSERT INTO Conteudo VALUES (9, 'https://bolsa_de_valores','Entenda Seu Perfil de Investidor: Conhecer seu perfil de investidor é fundamental para tomar decisões financeiras adequadas. Avalie sua tolerância ao risco, objetivos e prazos para escolher os investimentos que melhor se encaixam nas suas necessidades.', 9);
+INSERT INTO Conteudo VALUES (10, 'https://dicas_para_investir','Diversificação de Investimentos: Não coloque todos os seus ovos na mesma cesta. Diversificar seus investimentos entre diferentes ativos, como ações, renda fixa e imóveis, pode reduzir riscos e aumentar suas chances de retorno.', 1);
+
+
+CREATE TABLE Gasto (
+Id_gasto INTEGER PRIMARY KEY,
+Valor NUMBER,
+Data_gasto DATE,
+Nome_categoria VARCHAR(32),
+Id_categ INTEGER,
+UNIQUE (Nome_categoria),
+FOREIGN KEY (Id_categ) REFERENCES Categoria (Id_categ)
+);
+
+INSERT INTO Gasto VALUES (1, 600, TO_DATE('2024-10-26', 'YYYY-MM-DD'), 'educação', 355);
+INSERT INTO Gasto VALUES (2, 576.80, TO_DATE('2024-10-23', 'YYYY-MM-DD'), 'esporte', 234);
+INSERT INTO Gasto VALUES (3, 6896.89, TO_DATE('2024-09-03', 'YYYY-MM-DD'), 'saúde', 123);
+INSERT INTO Gasto VALUES (4, 100, TO_DATE('2024-03-12', 'YYYY-MM-DD'), 'lazer', 888);
+INSERT INTO Gasto VALUES (5, 456.70, TO_DATE('2024-04-15', 'YYYY-MM-DD'), 'comida', 554);
+INSERT INTO Gasto VALUES (6, 4000, TO_DATE('2024-01-05', 'YYYY-MM-DD'), 'contas', 368);
+INSERT INTO Gasto VALUES (7, 5389.60, TO_DATE('2024-06-17', 'YYYY-MM-DD'), 'viagem', 890);
+INSERT INTO Gasto VALUES (8, 340, TO_DATE('2024-07-09', 'YYYY-MM-DD'), 'academia', 977);
+
+SELECT * FROM Usuario;
+SELECT * FROM Categoria;
+SELECT * FROM Conteudo;
+SELECT * FROM Gasto;
